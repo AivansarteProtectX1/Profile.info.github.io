@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIVAN SARTE</title>
+
+  <!-- =============================== -->
+  <!-- 📂 CSS SECTION -->
+  <!-- =============================== -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    /* ===== GLOBAL BODY STYLE ===== */
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+      background: #000 url('bj.jpeg') no-repeat center center/cover;
+    }
+
+    /* ===== INTRO SECTION (START SCREEN) ===== */
+    #intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1000;
+      transition: opacity 0.8s ease;
+    }
+
+    /* 🎨 Rainbow text only — no box effect */
+    #introText {
+      font-size: 36px;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet, red);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 5s linear infinite, glowPulse 2s infinite;
+      margin-bottom: 50px;
+    }
+
+    /* Rainbow animation moves gradient */
+    @keyframes rainbow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Light glow animation (letters only) */
+    @keyframes glowPulse {
+      0%   { text-shadow: 0 0 8px red, 0 0 15px orange; }
+      50%  { text-shadow: 0 0 12px cyan, 0 0 20px blue; }
+      100% { text-shadow: 0 0 8px violet, 0 0 15px pink; }
+    }
+
+    /* ===== ENTER BUTTON ===== */
+    #enterBtn {
+      padding: 15px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      background: transparent;
+      border: 2px solid red;
+      border-radius: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: 0.3s;
+      box-shadow: 0 0 10px red, 0 0 30px rgba(255,0,0,0.5);
+    }
+
+    #enterBtn:hover {
+      transform: scale(1.15);
+      background: red;
+      color: black;
+      box-shadow: 0 0 20px red, 0 0 60px red;
+    }
+
+    /* ===== VIP CARD SECTION ===== */
+    .vip-card {
+      width: 500px;
+      height: 280px;
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(10, 10, 10, 0.5);
+      box-shadow: 0 0 20px rgba(255,0,0,0.8),
+                  0 0 60px rgba(255,0,0,0.5),
+                  inset 0 0 30px rgba(255,0,0,0.2);
+      animation: floating 6s ease-in-out infinite;
+      border: 2px solid transparent;
+      backdrop-filter: blur(2px);
+      display: none;
+    }
+
+    @keyframes floating {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ===== Rainbow Text (VIP Card) ===== */
+    .rainbow-text {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet, red);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbow 6s linear infinite, glitch 2s infinite;
+    }
+
+    @keyframes glitch {
+      0%   { text-shadow: 2px 2px 5px rgba(255,0,0,0.8); }
+      20%  { text-shadow: -2px -2px 5px rgba(0,255,255,0.8); }
+      40%  { text-shadow: 2px -2px 6px rgba(255,0,255,0.8); }
+      60%  { text-shadow: -2px 2px 6px rgba(255,255,0,0.8); }
+      80%  { text-shadow: 3px 0 8px rgba(255,0,0,0.9); }
+      100% { text-shadow: 0px 0px 6px rgba(255,0,0,1); }
+    }
+
+    /* ===== VIP Card Layout ===== */
+    .live-time {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .vip-header {
+      position: absolute;
+      top: 45px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 10px;
+    }
+
+    .card-number { font-size: 13px; font-weight: 500; }
+
+    .photo-section {
+      position: absolute;
+      left: 25px;
+      top: 90px;
+      width: 115px;
+      height: 118px;
+      border: 2px solid rgba(255,0,0,0.9);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 0 20px rgba(255,0,0,0.7);
+    }
+
+    .photo-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .member-info {
+      position: absolute;
+      top: 90px;
+      left: 155px;
+      right: 25px;
+    }
+
+    .member-name {
+      font-size: 19px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .member-details {
+      font-size: 11px;
+      line-height: 1.1;
+    }
+
+    .status-bar {
+      position: absolute;
+      bottom: 45px;
+      left: 25px;
+      right: 90px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .typing { display: inline-block; white-space: pre-line; overflow: hidden; }
+
+    .social-icons {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: red;
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<!-- =============================== -->
+<!-- 📂 HTML SECTION -->
+<!-- =============================== -->
+<body>
+
+  <!-- Intro Section -->
+  <div id="intro">
+    <div id="introText" class="typing" data-text="WELCOME TO MY PROFILE..."></div>
+    <button id="enterBtn">PRESS TO ENTER</button>
+  </div>
+
+  <!-- VIP CARD -->
+  <div class="vip-card" id="mainContent">
+    <div id="liveTime" class="live-time rainbow-text"></div>
+    <div class="vip-header">
+      <div class="rainbow-text typing" data-text=" PROFILE INFORMATION"></div>
+      <div class="card-number rainbow-text typing" data-text="ID: 2025-VIP-7891"></div>
+    </div>
+
+    <div class="photo-section">
+      <img src="IMG_20251002_192906.jpg" alt="Profile Photo">
+    </div>
+
+    <div class="member-info">
+      <div class="member-name rainbow-text typing" data-text="AIVAN SARTE"></div>
+      <div class="member-details rainbow-text typing" data-text="BORN: MARCH,28,2009
+AGE: 16
+SEX: MALE
+SCHOOL:AMBASADOR PABLO R, SUAREZ
+ADDRESS: BICAO,CARMEN,BOHOL
+IN,RELATIONSHIP,WITH NADINE,MARCIAL
+FRIEND: JANPOL SUMINGUIT
+HOBBIT: MALANDI"></div>
+    </div>
+
+    <div class="status-bar">
+      <div class="vip-status rainbow-text typing" data-text="I T DATA INFORMATION"></div>
+      <div class="validity rainbow-text typing" data-text="VALID THRU: 12/30"></div>
+    </div>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com/ANONYMOUS.SARTE" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.tiktok.com/@aivansartejunrel?_t=ZS-90AnjcAOT34&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+      <a href="https://youtube.com/@aivansarte?si=Kt1hxzSr2a7ZYiRg" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!-- 📂 JAVASCRIPT SECTION -->
+  <!-- =============================== -->
+  <script>
+    // Function: Typewriter animation
+    function typeEffect(element, text, speed) {
+      let i = 0;
+      element.textContent = "";
+      function typing() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        }
+      }
+      typing();
+    }
+
+    // Function: Real-time clock
+    function updateTime() {
+      const now = new Date();
+      const options = { 
+        weekday: 'short', year: 'numeric', month: 'short',
+        day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
+      };
+      document.getElementById("liveTime").textContent = now.toLocaleDateString("en-US", options);
+    }
+
+    // Element references
+    const enterBtn = document.getElementById("enterBtn");
+    const introDiv = document.getElementById("intro");
+    const introText = document.getElementById("introText");
+    const mainContent = document.getElementById("mainContent");
+
+    // Run typing animation when page loads
+    window.addEventListener("load", () => {
+      introText.classList.add("rainbow-text"); // Apply rainbow effect to letters only
+      typeEffect(introText, introText.getAttribute("data-text"), 60);
+    });
+
+    // When user clicks "PRESS TO ENTER"
+    enterBtn.addEventListener("click", () => {
+      introDiv.style.opacity = "0";
+      setTimeout(() => {
+        introDiv.style.display = "none";
+        mainContent.style.display = "block";
+        document.querySelectorAll(".typing").forEach(el => {
+          typeEffect(el, el.getAttribute("data-text"), 40);
+        });
+        updateTime();
+        setInterval(updateTime, 1000);
+      }, 800);
+    });
+  </script>
+
+</body>
+</html>
